@@ -55,6 +55,7 @@ return [
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', env('LOG_STACK', 'single')),
+            // 'channels' => ['daily', 'database'],
             'ignore_exceptions' => false,
         ],
 
@@ -63,6 +64,12 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
+        ],
+
+        'database' => [
+            'driver'  => 'monolog',
+            'handler' => \App\Logging\DatabaseLogger::class,
+            'level'   => 'debug', // ou qualquer nível mínimo que desejar
         ],
 
         'daily' => [
